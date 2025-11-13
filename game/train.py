@@ -13,6 +13,7 @@ class Train:
         self.start_pos = (0,0)
         self.start_len = 3
         self.cars = deque()
+        self.car_awaiting = 0
         self.direction = Direction.UP
         self.next_dir = Direction.UP
 
