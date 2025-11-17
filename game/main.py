@@ -1,4 +1,4 @@
-from gamelogic import GameLogic
+from gameLogic import GameLogic
 
 if __name__ =="__main__":
     # create the game object and run the game

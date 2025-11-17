@@ -1,5 +1,5 @@
 import pygame, sys
-from gameboard import GameBoard
+from gameBoard import GameBoard
 from train import Direction, Train
 from people import People
 
@@ -13,10 +13,10 @@ class GameLogic:
         pygame.display.set_caption("PythonExpress")
         self.clock = pygame.time.Clock()
 
-        self.board = GameBoard(self.screen)
+        self.score = 0
+        self.board = GameBoard(self.screen, self.score)
         self.running = True
         self.game_over = False
-        self.score = 0
 
         self.train = Train()
         self.person = People()
@@ -51,6 +51,7 @@ class GameLogic:
 
     def update(self):
         if self.game_over:
+            self.board.game_over_display()
             return
         
         self.train.move_train()
