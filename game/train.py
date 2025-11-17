@@ -10,7 +10,7 @@ class Direction(Enum):
 
 class Train:
     def __init__(self):
-        self.start_pos = (0,0)
+        self.start_pos = (0, 0)
         self.start_len = 3
         self.cars = deque()
         self.car_awaiting = 0
@@ -23,11 +23,16 @@ class Train:
             self.cars.append((x-car, y))
 
     # NEEDS IMPLEMENTATION
-    def draw_train(self):
-        # for car in self.cars:
-        #     car_rect = pygame.Rect(int(car.x * track_size),int(car.y * track_size),track_size,track_size)
-        #     pygame.draw.rect
-        pass
+    def draw_train(self, surface):
+        for i, (x,y) in enumerate(self.cars):
+            car_rect = pygame.Rect(int(x * 50),int(y * 50),50,50)
+            
+            if i == 0:
+                pygame.draw.rect(surface, (220, 20, 60), car_rect)
+            else:
+                pygame.draw.rect(surface, (139, 0, 0), car_rect)
+            pygame.draw.rect(surface, (0,0,0), car_rect, 1)
+        
 
     def move_train(self):
         self.direction = self.next_dir
