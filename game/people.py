@@ -9,6 +9,8 @@ class People:
         # spawn the first person at a random location on the board
         self.position = (0,0)
         self.randomize()
+        self.person_sprite = pygame.image.load('graphics/person.png')
+        self.person_sprite = pygame.transform.scale(self.person_sprite, (50,50))
 
     def randomize(self, occupied_pos=None):
         # check if there are any occupied positions by the train
@@ -25,8 +27,7 @@ class People:
                 self.position = rand_pos
                 break
     
-    def draw_person(self, surface): 
+    def draw_person(self, surface):
         x, y = self.position
         people_rect = pygame.Rect(x * 50,y * 50,50,50)
-        pygame.draw.rect(surface, (220,20,60), people_rect)
-        pygame.draw.rect(surface, (0,0,0), people_rect, 2)
+        surface.blit(self.person_sprite, people_rect.topleft)

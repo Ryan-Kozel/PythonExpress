@@ -66,6 +66,7 @@ class GameLogic:
 
     def update(self):
         if self.game_over:
+            print('game over')
             self.board.game_over_display()
             return
         
@@ -104,7 +105,8 @@ class GameLogic:
             self.person = People()
             self.person.randomize(list(self.train.cars))
 
-            # increase board size 
+            # increase board size
+        self.board.score = self.score
 
     def draw(self):
         # draw the train and person objects
