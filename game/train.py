@@ -17,6 +17,30 @@ class Train:
         self.direction = Direction.UP
         self.next_dir = Direction.UP
 
+        self.train_up_sprite = pygame.image.load('graphics/train_up.png')
+        self.train_up_sprite = pygame.transform.scale(self.train_up_sprite, (50,50))
+
+        self.train_down_sprite = pygame.image.load('graphics/train_down.png')
+        self.train_down_sprite = pygame.transform.scale(self.train_down_sprite, (50,50))
+
+        self.train_left_sprite = pygame.image.load('graphics/train_left.png')
+        self.train_left_sprite = pygame.transform.scale(self.train_left_sprite, (50,50))
+
+        self.train_right_sprite = pygame.image.load('graphics/train_right.png')
+        self.train_right_sprite = pygame.transform.scale(self.train_right_sprite, (50,50))
+
+        self.car_up_sprite = pygame.image.load('graphics/car_up.png')
+        self.car_up_sprite = pygame.transform.scale(self.car_up_sprite, (50,50))
+
+        self.car_down_sprite = pygame.image.load('graphics/car_down.png')
+        self.car_down_sprite = pygame.transform.scale(self.car_down_sprite, (50,50))
+
+        self.car_left_sprite = pygame.image.load('graphics/car_left.png')
+        self.car_left_sprite = pygame.transform.scale(self.car_left_sprite, (50,50))
+
+        self.car_right_sprite = pygame.image.load('graphics/car_right.png')
+        self.car_right_sprite = pygame.transform.scale(self.car_right_sprite, (50,50))
+
         # create the train on initialization
         x,y = self.start_pos
         for car in range(self.start_len):
@@ -34,9 +58,23 @@ class Train:
             
             # the head car will be a different color
             if i == 0:
-                pygame.draw.rect(surface, (220, 20, 60), car_rect)
+                if self.direction == Direction.UP:
+                    surface.blit(self.train_up_sprite, car_rect.topleft)
+                elif self.direction == Direction.DOWN:
+                    surface.blit(self.train_down_sprite, car_rect.topleft)
+                elif self.direction == Direction.LEFT:
+                    surface.blit(self.train_left_sprite, car_rect.topleft)
+                elif self.direction == Direction.RIGHT:
+                    surface.blit(self.train_right_sprite, car_rect.topleft)
             else:
-                pygame.draw.rect(surface, (139, 0, 0), car_rect)
+                if self.direction == Direction.UP:
+                    surface.blit(self.car_up_sprite, car_rect.topleft)
+                elif self.direction == Direction.DOWN:
+                    surface.blit(self.car_down_sprite, car_rect.topleft)
+                elif self.direction == Direction.LEFT:
+                    surface.blit(self.car_left_sprite, car_rect.topleft)
+                elif self.direction == Direction.RIGHT:
+                    surface.blit(self.car_right_sprite, car_rect.topleft)
             
             pygame.draw.rect(surface, (0,0,0), car_rect, 1)
         

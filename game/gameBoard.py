@@ -9,6 +9,22 @@ class GameBoard:
         self.screen = screen
         self.score = score
         self.font = pygame.font.Font(None, 36)
+        #Change to 'start' to see start screen
+        self.state ='s'
+
+    #TODO
+    def display_start_screen(self):
+
+        start_screen = pygame.Surface((GRID_WIDTH, GRID_HEIGHT))
+        self.screen.blit(start_screen, (0, 0))
+
+        welcome_text = self.font.render("Welcome to PythonExpress", True, (255, 255, 255))
+        enter_text = self.font.render("Please Enter Username:", True, (255, 255, 255))
+
+        self.screen.blit(welcome_text, (10, 10))
+        self.screen.blit(enter_text, (10, welcome_text.get_height() + enter_text.get_height()))
+
+        pygame.display.flip()
 
     def background_display(self):
         # fill in the game board with a checkered pattern
@@ -41,15 +57,16 @@ class GameBoard:
 
         self.screen.blit(game_over_text, (10, 10))
         self.screen.blit(score_text, (10, game_over_text.get_height() + score_text.get_height()))
-
         pygame.display.flip()
 
     def render(self, train, people):
         #
-        self.background_display()
-        train.draw_train(self.screen)
-        people.draw_person(self.screen)
-        #Generate the top layers last, for example if score_display() goes first, the background will cover it up
-        self.score_display()
-        self.game_over_display() #Feel free to remove, here for testing
+        if self.state == 'start':
+            self.display_start_screen()
+        else:
+            self.background_display()
+            train.draw_train(self.screen)
+            people.draw_person(self.screen)
+            # Generate the top layers last, for example if score_display() goes first, the background will cover it up
+            self.score_display()
         pygame.display.flip()
