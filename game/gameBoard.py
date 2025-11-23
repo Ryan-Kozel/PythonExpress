@@ -2,6 +2,11 @@ import easygui
 import pygame
 from easygui import enterbox
 
+player_name= easygui.enterbox(msg="Enter Username:")
+
+if not player_name:
+    player_name= 'Player'
+
 
 GRID_WIDTH = 500
 GRID_HEIGHT = 500
@@ -26,10 +31,8 @@ class GameBoard:
         self.screen.blit(enter_text, (10, welcome_text.get_height() + enter_text.get_height()))
         pygame.display.flip()
 
-        player_name= easygui.enterbox(msg="Enter Username:")
+        self.state = 'Running'
 
-        if player_name != '':
-            self.state = player_name
 
     def background_display(self):
         # fill in the game board with a checkered pattern
@@ -64,7 +67,7 @@ class GameBoard:
         self.screen.blit(score_text, (10, game_over_text.get_height() + score_text.get_height()))
         pygame.display.flip()
 
-    def render(self, train, people):
+    def render(self, train, people, old):
         #
         if self.state == 'start':
             print('Drawing start screen')
@@ -73,6 +76,8 @@ class GameBoard:
             self.background_display()
             train.draw_train(self.screen)
             people.draw_person(self.screen)
+            old.draw_person(self.screen)
+
             # Generate the top layers last, for example if score_display() goes first, the background will cover it up
             self.score_display()
         pygame.display.flip()
