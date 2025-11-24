@@ -2,6 +2,8 @@ import pygame
 from enum import Enum
 from collections import deque
 
+SQUARE_SIZE = 50
+
 class Direction(Enum):
     UP = (0,-1)
     DOWN = (0,1)
@@ -18,35 +20,30 @@ class Train:
         self.next_dir = Direction.UP
 
         self.train_up_sprite = pygame.image.load('graphics/train_up.png')
-        self.train_up_sprite = pygame.transform.scale(self.train_up_sprite, (50,50))
+        self.train_up_sprite = pygame.transform.scale(self.train_up_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         self.train_down_sprite = pygame.image.load('graphics/train_down.png')
-        self.train_down_sprite = pygame.transform.scale(self.train_down_sprite, (50,50))
+        self.train_down_sprite = pygame.transform.scale(self.train_down_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         self.train_left_sprite = pygame.image.load('graphics/train_left.png')
-        self.train_left_sprite = pygame.transform.scale(self.train_left_sprite, (50,50))
+        self.train_left_sprite = pygame.transform.scale(self.train_left_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         self.train_right_sprite = pygame.image.load('graphics/train_right.png')
-        self.train_right_sprite = pygame.transform.scale(self.train_right_sprite, (50,50))
+        self.train_right_sprite = pygame.transform.scale(self.train_right_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         self.car_up_sprite = pygame.image.load('graphics/car_up.png')
-        self.car_up_sprite = pygame.transform.scale(self.car_up_sprite, (50,50))
+        self.car_up_sprite = pygame.transform.scale(self.car_up_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         self.car_down_sprite = pygame.image.load('graphics/car_down.png')
-        self.car_down_sprite = pygame.transform.scale(self.car_down_sprite, (50,50))
+        self.car_down_sprite = pygame.transform.scale(self.car_down_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         self.car_left_sprite = pygame.image.load('graphics/car_left.png')
-        self.car_left_sprite = pygame.transform.scale(self.car_left_sprite, (50,50))
+        self.car_left_sprite = pygame.transform.scale(self.car_left_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         self.car_right_sprite = pygame.image.load('graphics/car_right.png')
-        self.car_right_sprite = pygame.transform.scale(self.car_right_sprite, (50,50))
+        self.car_right_sprite = pygame.transform.scale(self.car_right_sprite, (SQUARE_SIZE,SQUARE_SIZE))
 
         # create the train on initialization
-        x,y = self.start_pos
-        for car in range(self.start_len):
-            self.cars.append((x, y+car))
-
-    def create_new_train(self, start_pos):
         x,y = self.start_pos
         for car in range(self.start_len):
             self.cars.append((x, y+car))
@@ -54,7 +51,7 @@ class Train:
     def draw_train(self, surface):
         # create each car with a pygame rect
         for i, (x,y) in enumerate(self.cars):
-            car_rect = pygame.Rect(int(x * 50),int(y * 50),50,50)
+            car_rect = pygame.Rect(x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
             
             # the head car will be a different color
             if i == 0:
@@ -74,10 +71,7 @@ class Train:
                 elif self.direction == Direction.LEFT:
                     surface.blit(self.car_left_sprite, car_rect.topleft)
                 elif self.direction == Direction.RIGHT:
-                    surface.blit(self.car_right_sprite, car_rect.topleft)
-            
-            pygame.draw.rect(surface, (0,0,0), car_rect, 1)
-        
+                    surface.blit(self.car_right_sprite, car_rect.topleft)     
 
     def move_train(self):
         self.direction = self.next_dir
