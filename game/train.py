@@ -49,11 +49,14 @@ class Train:
             self.cars.append((x, y+car))
 
     def draw_train(self, surface):
-        # create each car with a pygame rect
+        """Draw the train depending on which way it is currently traveling"""
+        # Create each car with a pygame rect
         for i, (x,y) in enumerate(self.cars):
             car_rect = pygame.Rect(x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
             
-            # the head car will be a different color
+            # Apply the correct sprite, depending on which direction the train/cars are traveling
+
+            # The head car will be a different sprite
             if i == 0:
                 if self.direction == Direction.UP:
                     surface.blit(self.train_up_sprite, car_rect.topleft)
